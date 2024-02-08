@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
             future: AllProductServises().getAllProducts(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                List<dynamic> products = snapshot.data!;
+                List<ProductModel> products = snapshot.data!;
                 return GridView.builder(
                   itemCount: products.length,
                   clipBehavior: Clip.none,

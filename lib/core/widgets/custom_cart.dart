@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:store_app/core/models/product_model.dart';
-import 'package:store_app/core/routes/app_routes.dart';
 import 'package:store_app/screens/update_product_screen.dart';
 
 class CustomCart extends StatelessWidget {
-  CustomCart({required this.product, Key? key}) : super(key: key);
+  CustomCart({
+    required this.product,
+    Key? key,
+  }) : super(key: key);
   ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => UpdateProductScreen(product: product)));
+        print(' product id = ${product.id}');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => UpdateProductScreen(product: product)),
+        );
       },
       child: Stack(
         clipBehavior: Clip.none,
@@ -23,12 +27,15 @@ class CustomCart extends StatelessWidget {
           Container(
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
-                  blurRadius: 30,
+                  blurRadius: 50,
                   color: Colors.grey.withOpacity(.1),
                   spreadRadius: 20,
                   offset: const Offset(1, 1))
             ]),
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               elevation: 10,
               color: Colors.white,
               child: Padding(

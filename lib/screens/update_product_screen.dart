@@ -14,10 +14,7 @@ class UpdateProductScreen extends StatefulWidget {
 }
 
 class _UpdateProductScreenState extends State<UpdateProductScreen> {
-  String? title;
-  String? desc;
-  String? price;
-  String? image;
+  String? title, desc, price, image;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -49,19 +46,24 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                     hintText: 'Description', onChange: (data) => desc = data),
                 SizedBox(height: 10.h),
                 CustomTextFormField(
-                    hintText: 'price',
-                    keyboardType: TextInputType.number,
-                    onChange: (data) => price = data),
+                  hintText: 'price',
+                  keyboardType: TextInputType.number,
+                  onChange: (data) => price = data,
+                ),
                 SizedBox(height: 10.h),
                 CustomTextFormField(
                     hintText: 'image', onChange: (data) => image = data),
                 SizedBox(height: 25.h),
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
                     isLoading = true;
                     setState(() {});
-                    updateProduct(widget.product);
-                    try {} catch (e) {
+                    try {
+                      await updateProduct(widget.product);
+
+                      print('success');
+                    } catch (e) {
+                      print('failed');
                       print(e.toString());
                     }
                     isLoading = false;
@@ -81,13 +83,13 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
     );
   }
 
-  void updateProduct(ProductModel product) {
-    UpdateProductService().updateProduct(
-      title: title == null ? product.title : title!,
-      price: price == null ? product.price.toString() : price!,
-      desc: desc == null ? product.description : desc!,
-      image: image == null ? product.image : image!,
-      category: product.category,
-    );
+  Future<void> updateProduct(ProductModel product) async {
+    await UpdateProductService().updateProduct(
+        id: product.id,
+        title: title == null ? product.title : title!,
+        price: price == null ? product.price.toString() : price!,
+        desc: desc == null ? product.description : desc!,
+        image: image == null ? product.image : image!,
+        category: product.category);
   }
 }

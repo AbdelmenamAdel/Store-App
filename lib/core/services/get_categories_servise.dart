@@ -5,7 +5,7 @@ import 'package:store_app/core/models/product_model.dart';
 class CategoriesServises {
   Future<List<ProductModel>> getCategoriesProducts(
       {required String categoryName}) async {
-    List<dynamic> data = await ApiConsumer().get(
+    List<dynamic> data = await Api().get(
         url: EndPoints.baseUrl +
             ApiKeys.products +
             ApiKeys.category +

@@ -10,7 +10,7 @@ class AddProduct {
     required String image,
     required String category,
   }) async {
-    dynamic data = ApiConsumer().post(
+    dynamic data = Api().post(
       url: EndPoints.baseUrl + ApiKeys.products,
       body: {
         'title': title,

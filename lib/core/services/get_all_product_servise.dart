@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 class AllProductServises {
   Future<List<ProductModel>> getAllProducts() async {
     List<dynamic> data =
-        await ApiConsumer().get(url: EndPoints.baseUrl + ApiKeys.products);
+        await Api().get(url: EndPoints.baseUrl + ApiKeys.products);
     List<ProductModel> productList = [];
     for (int i = 0; i < data.length; i++) {
       productList.add(ProductModel.fromJson(data[i]));
